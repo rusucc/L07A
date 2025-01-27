@@ -9,8 +9,8 @@ void setup() {
   pinMode(LED_BUILTIN, OUTPUT);
   Serial.begin(38400);
   Wire.begin();
-  sonarBazin.setAddress(0xD0);
-  // Adresa dispozitivului slave pe 8 biți (default: 0xE8):
+  sonarBazin.setAddress(0xE8);
+  // Adresa dispozitivului slave pe 8 biți (default: 0xE8/0x74 pe 7 biti):
   // Poate fi setată la oricare dintre cele 20 de adrese:
   // 0xD0, 0xD2, 0xD4, 0xD6, 0xD8, 0xDA, 0xDC, 0xDE, 0xE0,
   // 0xE2, 0xE4, 0xE6, 0xE8, 0xEA, 0xEC, 0xEE, 0xF8, 0xFA, 0xFC, 0xFE.
@@ -26,7 +26,7 @@ void setup() {
   // 5: Mod de sensibilitate ridicată.
   // Moduri implicite: UART automat (1), UART manual, PWM, RS485, IIC (0).
 
-  sonarBazin.setSignalLevel(0x02);
+  sonarBazin.setSignalLevel(0x01);
   // Nivelul semnalului (1-9, default: 5):
   // 1: ~50cm; 2: ~80cm; 3: ~110cm; 4: ~170cm; 5: ~200cm;
   // 6: ~210cm; 7: ~260cm; 8: ~280cm; 9: ~300cm.
@@ -43,6 +43,6 @@ void loop() {
     delay(100);
   }//doar daca e pe algoritm 0 trebuie dat request de masurare manual, in rest senzorul calculeaza singur distanta si o trimite cand primeste request
   sonarBazin.sendReceiveRequest();
-  delay(100);
+  delay(500);
   Serial.println(sonarBazin.getDistance());
 }
