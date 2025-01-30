@@ -13,8 +13,10 @@ class DYPL07 {
     // 5: Mod de sensibilitate ridicată.
     // Moduri implicite: UART automat (1), UART manual, PWM, RS485, IIC (0).
 
-    uint16_t _distance;
+    uint16_t _rawDistance;
+    int16_t _distance;
     //aici salveaza distanta ca valoare numerica in cm
+    uint32_t timeMeasure;
 
     uint8_t _signalLevel;
     // Nivelul semnalului (1-9, default: 5):
@@ -44,6 +46,7 @@ class DYPL07 {
     uint8_t getAddress();
     uint8_t getSignalLevel();
     uint8_t getAlgorithm();
-    uint16_t getDistance();
+    uint16_t getRawDistance();
+    int16_t getDistance();
 };
 #endif
