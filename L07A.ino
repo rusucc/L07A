@@ -41,20 +41,7 @@ void loop() {
   if (sonarBazin.getAlgorithm() == 0x00) {
     sonarBazin.sendMeasureRequest();
     delay(100);
-  }//doar daca e pe algoritm 0 trebuie dat request de masurare manual, in rest senzorul calculeaza singur distanta si o trimite cand primeste request
-  sonarBazin.sendReceiveRequest();
+  }  //doar daca e pe algoritm 0 trebuie dat request de masurare manual, in rest senzorul calculeaza singur distanta si o trimite cand primeste request;
   delay(250);
-  int16_t distance = sonarBazin.getDistance();
-  if (distance == -4) {  // 2 seconds timeout
-    Serial.println("Timeout");
-  } else if (distance == -3) { //Not found
-    Serial.println("No object found");
-  } else if (distance == -2) { //Interference
-    Serial.println("Interference");
-  } else if (distance == -1) { //Range incomplete
-    Serial.println("Ranging incomplete");
-  } else{
-    Serial.println(distance);
-  }
-
+  Serial.println(sonarBazin.getDistance());
 }

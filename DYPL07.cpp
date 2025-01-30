@@ -51,33 +51,11 @@ void DYPL07::sendReceiveRequest() {
   Wire.requestFrom(0x74, 2);
   uint16_t b1 = Wire.read();  //byte 1
   uint16_t b2 = Wire.read();  //byte 2
-  _rawDistance = (b1 << 8) | b2;
-  timeMeasure = millis();
+  _distance = (b1 << 8) | b2;
 }
 
-uint16_t DYPL07::getRawDistance() {
-  return _rawDistance;
-}
 int16_t DYPL07::getDistance() {
-  /*
-  Return values:
-  -4: Old value (>2 sec, TODO: un timp okay)
-  -3: Not found (0xFFFD)
-  -2: Interference (0xFFFE)
-  -1: Ranging not completed (0xFFFF)
-  */
-  if (millis() - timeMeasure > 2*(1000UL)) {  // 2 seconds timeout
-    _distance = -4;
-  } else if (_rawDistance == 0xFFFD) { //Not found
-    _distance = -3;
-  } else if (_rawDistance == 0xFFFE) { //Interference
-    _distance = -2;
-  } else if (_rawDistance == 0xFFFF) { //Ranging not completed
-    _distance = -1;
-  } else{
-    _distance = int16_t(_rawDistance);
-  }
-
+  sendReceiveRequest();
   return _distance;
 }
 uint8_t DYPL07::getAlgorithm() {
