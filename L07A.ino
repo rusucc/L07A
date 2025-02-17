@@ -35,6 +35,11 @@ void setup() {
   // Nivelul de reducere a zgomotului alimentării (1-5):
   // 1: Baterii; 2: USB cu zgomot; 3: USB pe distanțe lungi;
   // 4: Surse comutabile; 5: Interferențe complexe (nerecomandat).
+
+  sonarBazin.setRange(0x03);
+  //measurement range care da trig la senzor:
+  //range de la 0x03 la 0x23 corespunde la range de la 300mm la 3000mm, unitate de 100mm(chiar daca nu are sens ca 20 de trepte a 100m sa reprezinte tot intervalul de la 300 la 3000)
+  //la noi e 300 okay - 0x03
 }
 
 void loop() {

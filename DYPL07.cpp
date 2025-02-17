@@ -21,6 +21,9 @@ void DYPL07::setAlgorithm(uint8_t algorithm = 0) {
   Wire.endTransmission();
   _algorithm = algorithm;  //TODO: vazut cu Vio daca e necesar de facut si un check daca chiar a salvat si pe senzor valoarea
 }
+void DYPL07::setRange(uint8_t range = 0x03){
+  _range = range;
+}
 void DYPL07::setSignalLevel(uint8_t signalLevel = 5) {
   Wire.beginTransmission(_address);
   Wire.write(0x07);
@@ -38,7 +41,7 @@ void DYPL07::setPowerNoiseReductionLevel(uint8_t level = 1) {
 void DYPL07::sendMeasureRequest() {  //doar pe manual
   Wire.beginTransmission(_address);
   Wire.write(0x10);
-  Wire.write(0x14);
+  Wire.write(_range);
   Wire.endTransmission();
 }
 void DYPL07::sendReceiveRequest() {

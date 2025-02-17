@@ -27,6 +27,11 @@ class DYPL07 {
     // 1: Baterii; 2: USB cu zgomot; 3: USB pe distanțe lungi;
     // 4: Surse comutabile; 5: Interferențe complexe (nerecomandat).
 
+    uint8_t _range;
+    //measurement range care da trig la senzor:
+    //range de la 0x03 la 0x23 corespunde la range de la 300mm la 3000mm, unitate de 100mm(chiar daca nu are sens ca 20 de trepte a 100m sa reprezinte tot intervalul de la 300 la 3000)
+    //la noi e 300 okay - 0x03
+
   public:
     DYPL07(uint8_t address8 = 0xE8);
     void writeNewAddress(uint8_t newAddress = 0xE8);
@@ -34,7 +39,7 @@ class DYPL07 {
     // Poate fi setată la oricare dintre cele 20 de adrese:
     // 0xD0, 0xD2, 0xD4, 0xD6, 0xD8, 0xDA, 0xDC, 0xDE, 0xE0,
     // 0xE2, 0xE4, 0xE6, 0xE8, 0xEA, 0xEC, 0xEE, 0xF8, 0xFA, 0xFC, 0xFE.
-
+    void setRange(uint8_t range = 0x03);
     void setAlgorithm(uint8_t algorithm = 0);
     void setSignalLevel(uint8_t signalLevel = 5);
     void setPowerNoiseReductionLevel(uint8_t level = 1);
